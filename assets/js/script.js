@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
-let nextId = localStorage.getItem("nextId") || 1;
+let nextId = parseInt(localStorage.getItem("nextId")) || 1;
 
 const taskForm = $("#taskForm");
 const inputTitle = $("#formTitle");
@@ -9,8 +9,7 @@ const inputDescription = $("#formDescription");
 
 // Function to generate a unique task id
 function generateTaskId() {
-    const id = nextId;
-    nextId++;
+    const id = nextId++;
     localStorage.setItem("nextId", nextId);
     return id;
 }
@@ -23,18 +22,18 @@ function createTaskCard(task) {
     const $cardText = $("<p>").addClass("card-text").text(task.description);
     const $cardDueDate = $("<p>").addClass("card-text").text('Due Date: ' + task.dueDate);
     const $deleteButton = $("<button>").addClass("btn btn-danger").text("Delete");
-    $deleteButton.click(() => handleDeleteTask(event));
+    $deleteButton.click(handleDeleteTask);
 
     if (task.dueDate && task.status !== "done") {
         let taskDueDate = dayjs(task.dueDate, "YYYY-MM-DD");
         let currentDate = dayjs();
 
         if (taskDueDate.isBefore(currentDate, "day")) {
-            $card.addClass("bg-light text-dark");
+            $card.addClass("bg-danger text-white");
         } else if (taskDueDate.isSame(currentDate, "day")) {
             $card.addClass("bg-warning text-white");
         } else if (taskDueDate.isAfter(currentDate, "day")) {
-            $card.addClass("bg-danger text-white");
+            $card.addClass("bg-light text-dark");
         }
     }
 
@@ -94,7 +93,7 @@ function handleAddTask(event) {
     };
 
     taskList.push(newTask);
-    localStorage.setItem("tasks", JSON.stringify(taskList));
+    localStorage.setItem("tasks", JSON.stringify(taskList)); // Update local storage
 
     renderTaskList();
 
@@ -103,14 +102,21 @@ function handleAddTask(event) {
     inputDescription.val("");
 }
 
+// Function to handle deleting a task
+function handleDeleteTask(event) {
+    event.preventDefault();
+    const taskId = $(event.currentTarget).closest('.card').attr("id");
+    taskList = taskList.filter(task => task.id !== parseInt(taskId));
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+    renderTaskList();
+}
+
 // Event listener for adding a new task
-taskForm.submit(handleAddTask);
+$("#addTaskButton").click(handleAddTask);
 
 // When the page loads, render the task list and set up event listeners
 $(document).ready(function () {
     renderTaskList();
-    taskForm.on('submit', handleAddTask);
-
     if (!inputDueDate.hasClass('hasDatepicker')) {
         inputDueDate.datepicker({
             dateFormat: "yy-mm-dd"

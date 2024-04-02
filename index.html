@@ -27,40 +27,37 @@
 
 
     <!-- Todo: Create a modal with a form to add tasks -->
-    <div class="modal" id="formModal" tabindex="-1" aria-labelledby="formModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add Task</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            </button>
+<div class="modal" id="formModal" tabindex="-1" aria-labelledby="formModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="taskForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="formTitle" class="col-form-label">Task Title</label>
+              <input type="text" class="form-control" id="formTitle">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="formDate" class="col-form-label">Task Due Date</label>
+              <input type="date" id="formDate" class="form-control" min="2000-01-01" />
+            </div>
           </div>
-          <div class="modal-body">
-            <form id="taskForm">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="formTitle" class="col-form-label">Task Title</label>
-                  <input type="text" class="form-control" id="formTitle">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="formDate" class="col-form-label">Task Due Date</label>
-                  <input type="date" id="formDate" class="form-control" min="2000-01-01" />
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="formDescription" class="col-form-label">Task Description</label>
-                <textarea class="form-control" id="formDescription" rows="3"></textarea>
-              </div>
-            </form>
+          <div class="mb-3">
+            <label for="formDescription" class="col-form-label">Task Description</label>
+            <textarea class="form-control" id="formDescription" rows="3"></textarea>
           </div>
-          <div class="modal-footer justify-content-center">
-            <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#submit">Add
-              Task</button>
-          </div>
-        </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" id="addTaskButton">Add Task</button>
       </div>
     </div>
   </div>
+</div>
 
 
     <div class="row swim-lanes text-center justify-content-between">
