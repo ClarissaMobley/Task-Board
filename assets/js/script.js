@@ -74,12 +74,38 @@ renderTaskList();
 function handleAddTask(event) {
     event.preventDefault();
 
+    const title = inputTitle.val().trim();
+    const dueDate = inputDueDate.val().trim();
+    const description = inputDescription.val().trim();
+
+    if (!title || !dueDate || !description) {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    const newTask = {
+        id: generateTaskId(),
+        title: title,
+        dueDate: dueDate,
+        description: description,
+        status: "to-do"
+    };
+
+    taskList.push(newTask);
+
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+
+    inputTitle.val("");
+    inputDueDate.val("");
+    inputDescription.val("");
+
+    renderTaskList();
 
 }
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
-     // TODO: Implement handling of deleting a task
+
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
@@ -95,5 +121,4 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-     // TODO: Implement initial rendering of the task list, adding event listeners, making lanes droppable, and making the due date field a date picker
 });
