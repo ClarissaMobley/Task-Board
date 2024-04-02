@@ -1,3 +1,4 @@
+
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = parseInt(localStorage.getItem("nextId")) || 1;
@@ -66,10 +67,11 @@ function renderTaskList() {
     });
 
     $(".lane").droppable({
-        accept: ".card",
-        drop: handleDrop
+        accept: ".draggable",
+        drop: handleDrop,
     });
 }
+
 
 // Function to handle adding a new task
 function handleAddTask(event) {
@@ -97,10 +99,15 @@ function handleAddTask(event) {
 
     renderTaskList();
 
+    // Clear input fields
     inputTitle.val("");
     inputDueDate.val("");
     inputDescription.val("");
+
+    // Close the modal
+    $("#formModal").modal("hide");
 }
+
 
 // Function to handle deleting a task
 function handleDeleteTask(event) {
@@ -114,6 +121,20 @@ function handleDeleteTask(event) {
 // Event listener for adding a new task
 $("#addTaskButton").click(handleAddTask);
 
+
+// Function to handle dropping a task card into a lane
+function handleDrop(event, ui) {
+    const taskId = ui.helper.attr("id");
+    const laneId = $(event.target).attr("id");
+
+    const task = taskList.find(task => task.id === parseInt(taskId));
+    task.status = laneId;
+
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+    renderTaskList();
+    
+}
+
 // When the page loads, render the task list and set up event listeners
 $(document).ready(function () {
     renderTaskList();
@@ -121,5 +142,6 @@ $(document).ready(function () {
         inputDueDate.datepicker({
             dateFormat: "yy-mm-dd"
         });
+
     }
 });
