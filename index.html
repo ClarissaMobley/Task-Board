@@ -37,23 +37,25 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="mb-3">
-                <label for="formTitle" class="col-form-label">Title</label>
-                <input type="text" class="form-control" id="formTitle">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="formTitle" class="col-form-label">Task Title</label>
+                  <input type="text" class="form-control" id="formTitle">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="formDate" class="col-form-label">Task Due Date</label>
+                  <input type="date" id="formDate" class="form-control" min="2000-01-01" />
+                </div>
               </div>
               <div class="mb-3">
-                <label for="formDate" class="col-form-label">Due Date</label>
-                <input type="date" id="formDate" class="form-control" min="2000-01-01" />
-              </div>
-              <div class="mb-3">
-                <label for="formDescription" class="col-form-label">Description</label>
+                <label for="formDescription" class="col-form-label">Task Description</label>
                 <textarea class="form-control" id="formDescription" rows="3"></textarea>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="addTask" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTask">Add Task</button>
+          <div class="modal-footer justify-content-center">
+            <button type="addTask" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTask">Add
+              Task</button>
             <!-- <button type="button" class="btn btn-primary">Send message</button> -->
           </div>
         </div>
