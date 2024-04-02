@@ -2,14 +2,21 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+const taskForm = $("#taskForm");
+const inputTitle = $("#formTitle");
+const inputDueDate = $("#formDueDate");
+const inputDescription = $("#formDescription");
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
    return nextId++;
 }
 
+
+
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-    const
+
 }
 
 // Todo: create a function to render the task list and make cards draggable
