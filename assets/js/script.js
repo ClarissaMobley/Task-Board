@@ -3,6 +3,7 @@
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = parseInt(localStorage.getItem("nextId")) || 1;
 
+// Created const variables for IDs
 const taskForm = $("#taskForm");
 const inputTitle = $("#formTitle");
 const inputDueDate = $("#formDate");
@@ -25,10 +26,13 @@ function createTaskCard(task) {
     const deleteButton = $("<button>").addClass("btn btn-danger").text("Delete");
     deleteButton.click(handleDeleteTask);
 
+
+    // Condition to check if task has due date 
     if (task.dueDate && task.status !== "done") {
         let taskDueDate = dayjs(task.dueDate, "YYYY-MM-DD");
         let currentDate = dayjs();
 
+        // Else if statement to change color depending on the day and when it's due
         if (taskDueDate.isBefore(currentDate, "day")) {
             card.addClass("bg-danger text-white");
         } else if (taskDueDate.isSame(currentDate, "day")) {
@@ -37,7 +41,7 @@ function createTaskCard(task) {
             card.addClass("bg-light text-dark");
         }
     }
-
+    // Append elements and cardbody to card
     cardBody.append(cardTitle, cardText, cardDueDate, deleteButton);
     card.append(cardBody);
 
@@ -46,20 +50,24 @@ function createTaskCard(task) {
 
 // Function to render the task list and make cards draggable
 function renderTaskList() {
+
+    // Clear out any existing cards
     $(".lane .card").remove();
 
+    // Loops through each task and appends task card based on status
     for (const task of taskList) {
-        const $taskCard = createTaskCard(task);
+        const taskCard = createTaskCard(task);
 
         if (task.status === "to-do") {
-            $("#todo-cards").append($taskCard);
+            $("#todo-cards").append(taskCard);
         } else if (task.status === "in-progress") {
-            $("#in-progress-cards").append($taskCard);
+            $("#in-progress-cards").append(taskCard);
         } else if (task.status === "done") {
-            $("#done-cards").append($taskCard);
+            $("#done-cards").append(taskCard);
         }
     }
 
+    // Cards draggable
     $(".draggable").draggable({
         opacity: 0.7,
         zIndex: 100,
@@ -77,6 +85,7 @@ function handleAddTask(event) {
     const dueDate = inputDueDate.val().trim();
     const description = inputDescription.val().trim();
 
+    // Alert if left blank
     if (!title || !dueDate || !description) {
         alert("Please fill out all fields.");
         return;
@@ -95,12 +104,12 @@ function handleAddTask(event) {
 
     renderTaskList();
 
-    
+    // Clear input
     inputTitle.val("");
     inputDueDate.val("");
     inputDescription.val("");
 
-
+    // Close form
     $("#formModal").modal("hide");
 }
 
@@ -123,6 +132,7 @@ function handleDrop(event, ui) {
     const taskId = ui.helper.attr("id");
     const laneId = $(event.target).attr("id");
 
+    // Find task and update from card
     const task = taskList.find(task => task.id === parseInt(taskId));
     task.status = laneId;
 
@@ -139,6 +149,7 @@ $(document).ready(function () {
             dateFormat: "yy-mm-dd"
         });
 
+        // Lanes droppable for cards
     $(".lane").droppable({
         accept: ".draggable",
         drop: handleDrop
