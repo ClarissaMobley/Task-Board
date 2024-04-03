@@ -23,7 +23,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![screenshotTask]](./assets/images/task-board.png)
+![screenshotTask](./assets/images/task-board.png)
 
 This is a simple task board application that allows a team to manage project tasks. This app runs in the browser and features dynamically updated HTML and CSS powered by jQuery.
 
@@ -79,7 +79,7 @@ This is a simple task board application that allows a team to manage project tas
 <!-- CONTRIBUTOR -->
 ## Contributor
 
-* Clarissa Mobley - [Git Hub Repositories](https://github.com/ClarissaMobley?tab=repositories)
+* Clarissa Mobley - [Git Hub](https://github.com/ClarissaMobley?tab=repositories)
 
 
 <!-- LICENSE -->
