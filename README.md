@@ -44,7 +44,7 @@ This is a simple task board application that allows a team to manage project tas
 <!-- LINK -->
 ## Link
 
-[Task Board]()
+[Task Board](https://clarissamobley.github.io/Task-Board/)
 
 <!-- USAGE EXAMPLES -->
 ## Usage
