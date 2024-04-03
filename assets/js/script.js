@@ -17,7 +17,7 @@ function generateTaskId() {
 
 // Function to create a task card
 function createTaskCard(task) {
-    const $card = $("<div>").addClass("card").attr("id", task.id);
+    const $card = $("<div>").addClass("card draggable").attr("id", task.id);
     const $cardBody = $("<div>").addClass("card-body");
     const $cardTitle = $("<h5>").addClass("card-title").text(task.title);
     const $cardText = $("<p>").addClass("card-text").text(task.description);
@@ -60,10 +60,11 @@ function renderTaskList() {
         }
     }
 
-    $(".card").draggable({
+    $(".draggable").draggable({
         opacity: 0.7,
         zIndex: 100,
     });
+
 
 }
 
@@ -94,12 +95,12 @@ function handleAddTask(event) {
 
     renderTaskList();
 
-    // Clear input fields
+    
     inputTitle.val("");
     inputDueDate.val("");
     inputDescription.val("");
 
-    // Close the modal
+
     $("#formModal").modal("hide");
 }
 
@@ -125,6 +126,7 @@ function handleDrop(event, ui) {
     const task = taskList.find(task => task.id === parseInt(taskId));
     task.status = laneId;
 
+
     localStorage.setItem("tasks", JSON.stringify(taskList));
     renderTaskList();
     
@@ -133,10 +135,13 @@ function handleDrop(event, ui) {
 // When the page loads, render the task list and set up event listeners
 $(document).ready(function () {
     renderTaskList();
-    if (!inputDueDate.hasClass('hasDatepicker')) {
-        inputDueDate.datepicker({
+        $("#formDate").datepicker({
             dateFormat: "yy-mm-dd"
         });
 
-    }
+    $(".lane").droppable({
+        accept: ".draggable",
+        drop: handleDrop
+    })
+
 });
