@@ -17,31 +17,31 @@ function generateTaskId() {
 
 // Function to create a task card
 function createTaskCard(task) {
-    const $card = $("<div>").addClass("card draggable").attr("id", task.id);
-    const $cardBody = $("<div>").addClass("card-body");
-    const $cardTitle = $("<h5>").addClass("card-title").text(task.title);
-    const $cardText = $("<p>").addClass("card-text").text(task.description);
-    const $cardDueDate = $("<p>").addClass("card-text").text('Due Date: ' + task.dueDate);
-    const $deleteButton = $("<button>").addClass("btn btn-danger").text("Delete");
-    $deleteButton.click(handleDeleteTask);
+    const card = $("<div>").addClass("card draggable").attr("id", task.id);
+    const cardBody = $("<div>").addClass("card-body");
+    const cardTitle = $("<h5>").addClass("card-title").text(task.title);
+    const cardText = $("<p>").addClass("card-text").text(task.description);
+    const cardDueDate = $("<p>").addClass("card-text").text('Due Date: ' + task.dueDate);
+    const deleteButton = $("<button>").addClass("btn btn-danger").text("Delete");
+    deleteButton.click(handleDeleteTask);
 
     if (task.dueDate && task.status !== "done") {
         let taskDueDate = dayjs(task.dueDate, "YYYY-MM-DD");
         let currentDate = dayjs();
 
         if (taskDueDate.isBefore(currentDate, "day")) {
-            $card.addClass("bg-danger text-white");
+            card.addClass("bg-danger text-white");
         } else if (taskDueDate.isSame(currentDate, "day")) {
-            $card.addClass("bg-warning text-white");
+            card.addClass("bg-warning text-white");
         } else if (taskDueDate.isAfter(currentDate, "day")) {
-            $card.addClass("bg-light text-dark");
+            card.addClass("bg-light text-dark");
         }
     }
 
-    $cardBody.append($cardTitle, $cardText, $cardDueDate, $deleteButton);
-    $card.append($cardBody);
+    cardBody.append(cardTitle, cardText, cardDueDate, deleteButton);
+    card.append(cardBody);
 
-    return $card;
+    return card;
 }
 
 // Function to render the task list and make cards draggable
