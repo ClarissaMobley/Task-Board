@@ -11,7 +11,7 @@ const inputDescription = $("#formDescription");
 // Function to generate a unique task id
 function generateTaskId() {
     const id = nextId++;
-    localStorage.setItem("nextId", nextId);
+    localStorage.setItem("nextId", JSON.stringify(nextId));
     return id;
 }
 
@@ -61,15 +61,10 @@ function renderTaskList() {
     }
 
     $(".card").draggable({
-        revert: "invalid",
-        helper: "clone",
-        zIndex: 100
+        opacity: 0.7,
+        zIndex: 100,
     });
 
-    $(".lane").droppable({
-        accept: ".draggable",
-        drop: handleDrop,
-    });
 }
 
 
@@ -95,7 +90,7 @@ function handleAddTask(event) {
     };
 
     taskList.push(newTask);
-    localStorage.setItem("tasks", JSON.stringify(taskList)); // Update local storage
+    localStorage.setItem("tasks", JSON.stringify(taskList)); 
 
     renderTaskList();
 
